@@ -1,0 +1,21 @@
+name: petit-cocon
+services:
+  cocon:
+    build:
+      context: .
+      dockerfile: server/Dockerfile
+    restart: unless-stopped
+    environment:
+      COCON_PUBLIC_ORIGIN: "https://${COCON_DOMAIN}"
+      COCON_CREATE_KEY: "${COCON_CREATE_KEY:?}"
+      COCON_MAX_FAMILIES: "20"
+      COCON_FAMILY_QUOTA_MB: "512"
+    volumes:
+      - cocon-data:/data
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8080/api/health')"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+volumes:
+  cocon-data:
