@@ -8,7 +8,7 @@ services:
     environment:
       COCON_PUBLIC_ORIGIN: "https://${COCON_DOMAIN:-cocon.app.donosoft.ovh}"
       COCON_CREATE_KEY: "${COCON_CREATE_KEY:?}"
-      COCON_MAX_FAMILIES: "20"
+      COCON_MAX_FAMILIES: "${COCON_MAX_FAMILIES:-20}"
       COCON_FAMILY_QUOTA_MB: "512"
     volumes:
       - cocon-data:/data
